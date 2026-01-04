@@ -119,8 +119,6 @@ var is_mic_enabled: bool = true
 var is_autostop_enabled: bool = true
 # Rozsah náhodných bodů pro písmena
 var points_range: Vector2i = Vector2i(1, 5)
-# Délka času na odpovědi (sec)
-var round_time: int = 5
 
 # Rychlost losování
 var spin_wait_time: float = 0.05
@@ -129,4 +127,6 @@ var slowdown_factor: float = 1.2
 # Hraniční hodnota pro zastavení losování
 var slowdown_stop_speed: float = 0.3
 # Čas pro autostop
-var autostop_wait_time: float = 3.0
+var autostop_wait_time: float = 1.0
+# Délka času na odpovědi (sec)
+var round_wait_time: float = 10.0

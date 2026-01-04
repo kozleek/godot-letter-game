@@ -1,0 +1,69 @@
+[gd_scene load_steps=7 format=3 uid="uid://0gydjk0qwxke"]
+
+[ext_resource type="Script" uid="uid://7odq0r7ncd7q" path="res://Scripts/round.gd" id="1_l5srp"]
+[ext_resource type="StyleBox" uid="uid://b4ehxg7dlfq7" path="res://Styles/progress_bar_background.tres" id="2_46gvc"]
+[ext_resource type="StyleBox" uid="uid://dud0lrsnd71n2" path="res://Styles/progress_bar_fill.tres" id="3_ckbw8"]
+[ext_resource type="FontFile" uid="uid://dsa1xxi54pxfy" path="res://Assets/Fonts/TitanOne-Regular.ttf" id="4_ckbw8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y1cxc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_re3hn"]
+
+[node name="Round" type="PanelContainer"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -120.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_y1cxc")
+script = ExtResource("1_l5srp")
+
+[node name="TimerRound" type="Timer" parent="."]
+one_shot = true
+
+[node name="TimerRoundStep" type="Timer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 40
+
+[node name="Panel" type="Panel" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxEmpty_re3hn")
+
+[node name="ProgressBar" type="ProgressBar" parent="MarginContainer/HBoxContainer/Panel"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = ExtResource("2_46gvc")
+theme_override_styles/fill = ExtResource("3_ckbw8")
+value = 40.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.99215686, 0.92156863, 0.78039217, 1)
+theme_override_fonts/font = ExtResource("4_ckbw8")
+theme_override_font_sizes/font_size = 48
+text = "5 sec."
+horizontal_alignment = 2
+
+[connection signal="timeout" from="TimerRound" to="." method="_on_timer_round_timeout"]
+[connection signal="timeout" from="TimerRoundStep" to="." method="_on_timer_round_step_timeout"]
