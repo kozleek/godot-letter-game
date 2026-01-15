@@ -3,6 +3,7 @@ extends PanelContainer
 
 signal signal_round_finished
 
+@onready var game: Game = $".."
 @onready var sound_effect: AudioStreamPlayer2D = $SoundEffect
 @onready var sound_end: AudioStreamPlayer2D = $SoundEnd
 @onready var timer_round: Timer = $TimerRound
@@ -60,6 +61,7 @@ func _process(_delta: float) -> void:
 func _on_timer_round_timeout() -> void:
 	sound_effect.play()
 	sound_end.play()
+	Visuals.screen_shake(game, 20.0, 0.2)
 	self.end()	
 
 # Sekundový časovač pro odpočet kola - mění text v labelu u progress baru
