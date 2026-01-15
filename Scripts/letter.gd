@@ -78,11 +78,13 @@ func update_visuals() -> void:
 # ========================
 
 func points_show() -> void:
-	points.text = str(current_points)
-	points_container.show()
+	if Settings.is_points_visible:
+		points.text = str(current_points)
+		points_container.show()
 
 func points_hide() -> void:
-	points_container.hide()
+	if Settings.is_points_visible:
+		points_container.hide()
 
 # ========================
 # Výpočty a pomocné funkce
@@ -103,4 +105,9 @@ func get_random_points() -> int:
 # ========================
 
 func _on_game_signal_spin_finalize() -> void:
+	points_show()	
 	sound_effect.stop()
+
+
+func _on_game_signal_spin_start() -> void:
+	points_hide()

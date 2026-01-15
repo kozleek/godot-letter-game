@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://c7ufm12iiqvda"]
+
+[ext_resource type="Theme" uid="uid://ctgkegabwu8l1" path="res://Themes/menu.tres" id="1_xhh6f"]
+[ext_resource type="Texture2D" uid="uid://bjc48rmonlj02" path="res://Assets/Icons/sound_on.svg" id="2_cayip"]
+
+[node name="Menu" type="MarginContainer"]
+custom_minimum_size = Vector2(1000, 80)
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme = ExtResource("1_xhh6f")
+
+[node name="PanelContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="ButtonSound" type="Button" parent="PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+icon = ExtResource("2_cayip")
+flat = true
+icon_alignment = 1
