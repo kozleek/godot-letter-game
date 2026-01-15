@@ -29,20 +29,21 @@ func _ready() -> void:
 
 # Začátek kola
 func start() -> void:
-	progress_bar.value = 0.0
-	remaining_time = int(Settings.round_wait_time)
-	label.text = str(remaining_time) + ' ' + tr("UI_SEC")
-	
-	self.show()
-	timer_round.start()
-	timer_round_step.start()
+	if Settings.is_round_enabled:
+		progress_bar.value = 0.0
+		remaining_time = int(Settings.round_wait_time)
+		label.text = str(remaining_time) + ' ' + tr("UI_SEC")	
+		self.show()
+		timer_round.start()
+		timer_round_step.start()
 
 # Konec kola
 func end() -> void:	
-	self.hide()	
-	timer_round.stop()
-	timer_round_step.stop()
-	signal_round_finished.emit()	
+	if Settings.is_round_enabled:
+		self.hide()	
+		timer_round.stop()
+		timer_round_step.stop()
+		signal_round_finished.emit()	
 
 # ========================
 # Zobrazení stavu
@@ -58,8 +59,7 @@ func _process(_delta: float) -> void:
 # ========================
 	
 # Spustí se když je kolo ukončeno
-func _on_timer_round_timeout() -> void:
-	sound_effect.play()
+func _on_timer_round_timeout() -> void:	
 	sound_end.play()
 	Visuals.screen_shake(game, 20.0, 0.2)
 	self.end()	

@@ -119,6 +119,10 @@ var is_mic_enabled: bool = true
 var is_autostop_enabled: bool = true
 # Rozsah náhodných bodů pro písmena
 var points_range: Vector2i = Vector2i(1, 5)
+# Zobrazovat hodnoty pismen?
+var is_points_visible: bool = false
+# Povolit odpocet kola?
+var is_round_enabled: bool = false
 
 # Rychlost losování
 var spin_wait_time: float = 0.05

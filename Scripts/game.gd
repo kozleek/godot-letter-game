@@ -53,7 +53,7 @@ func spin_start() -> void:
 	# Ukončení herního kola a skrytí odpovědi
 	answer.hide()
 	round.end()
-	letter.points_hide()
+	#letter.points_hide()
 	
 	# Resetujeme rychlost timeru na výchozí hodnotu
 	timer_spin.wait_time = Settings.spin_wait_time
@@ -95,7 +95,7 @@ func spin_finalize() -> void:
 	Visuals.screen_shake(self, 6.0, 0.3)
 	Visuals.pop_animation(subject, 1.6)
 	
-	letter.points_show()
+	#letter.points_show()
 	
 	# Spustíme odpočet kola
 	round_start()	
@@ -105,15 +105,17 @@ func spin_finalize() -> void:
 # ========================
 
 func round_start() -> void:
-	print("[Game] Start kola")
-	is_round_active = true
-	is_round_finished = false
-	round.start()
+	if Settings.is_round_enabled:
+		print("[Game] Start kola")
+		is_round_active = true
+		is_round_finished = false
+		round.start()
 
 func round_end() -> void:
-	print("[Game] Konec kola")
-	is_round_active = false
-	is_round_finished = true	
+	if Settings.is_round_enabled:
+		print("[Game] Konec kola")
+		is_round_active = false
+		is_round_finished = true	
 
 # ========================
 # Signály
@@ -155,8 +157,8 @@ func _input(event: InputEvent) -> void:
 			spin_stop()
 
 	if event.is_action_pressed("answer"):		
-		if is_round_finished == true and is_finalize == true:
+		if (is_round_finished == true and is_finalize == true) or (Settings.is_round_enabled == false and is_finalize == true):
 			print("[Input:Answer] Zobrazení odpovědi")
 			answer.show_answer(current_subject, current_letter)
 		else:
-			print("[Input:Answer] Odpověď nelze zobrazit. is_round_finished: %s, is_finalize: %s" % [is_round_finished, is_finalize])
+			print("[Input:Answer] Odpověď nelze zobrazit. is_round_enabled: %s, is_round_finished: %s, is_finalize: %s" % [Settings.is_round_enabled, is_round_finished, is_finalize])
