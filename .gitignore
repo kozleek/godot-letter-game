@@ -1,3 +1,19 @@
 # Godot 4+ specific ignores
 .godot/
 /android/
+
+# macOS
+.DS_Store
+
+# IDE
+.vscode/
+.claude/
+
+# Secrets and credentials
+secrets.cfg
+
+# Exports
+*.app
+*.dmg
+*.exe
+*.zip
