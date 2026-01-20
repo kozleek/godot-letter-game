@@ -1,6 +1,7 @@
 class_name Score
 extends HBoxContainer
 
+@onready var sound_effect: AudioStreamPlayer2D = $SoundEffect
 @onready var team1_button: Button = $Team1
 @onready var team2_button: Button = $Team2
 @onready var team1_score_label: Label = $Team1/Score
@@ -68,6 +69,8 @@ func add_points_to_team1() -> void:
 	# Vizuální efekt
 	if Visuals:
 		Visuals.pop_animation(team1_button, 1.3, 0.1)
+		
+	sound_effect.play()
 
 ## Přičte body týmu 2
 func add_points_to_team2() -> void:
@@ -85,11 +88,13 @@ func add_points_to_team2() -> void:
 	# Vizuální efekt
 	if Visuals:
 		Visuals.pop_animation(team2_button, 1.3, 0.1)
+		
+	sound_effect.play()
 
 ## Aktualizuje zobrazení skóre
 func update_display() -> void:
 	team1_score_label.text = str(Settings.team1_score)
-	team2_score_label.text = str(Settings.team2_score)
+	team2_score_label.text = str(Settings.team2_score)	
 
 ## Resetuje skóre obou týmů
 func reset_scores() -> void:

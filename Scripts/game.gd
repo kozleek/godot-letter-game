@@ -41,8 +41,8 @@ func _ready() -> void:
 	# Aplikace zvukových nastavení (data jsou již načtena v UserData autoloadu)
 	Audio.apply_sound_settings()
 
-	# Generovana barva pozadi
-	Visuals.change_background_color(background)
+	# Pozadí si vygeneruje gradient automaticky ve svém _ready()
+	# (background.gd skript)
 
 	# Nastavení rychlosti časovačů
 	timer_spin.wait_time = Settings.spin_wait_time

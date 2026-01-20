@@ -37,16 +37,45 @@ func pop_animation(target_node, factor: float = 1.4, duration: float = 0.2, repe
 # Pozadí a barvy
 # ========================
 
-# Funkce pro vygenerování a nastavení barvy
+# DEPRECATED: Tato funkce už není používána
+# Pozadí si nyní generuje gradient automaticky ve Scripts/background.gd
+# target_node by měl být Panel node s ColorRect child node pojmenovaným "GradientOverlay"
 func change_background_color(target_node) -> void:
-	var random_color = background_color_generator()
-	
-	# Vytvoříme nový styl pro pozadí (StyleBoxFlat je standardní styl pro plnou barvu)
-	var style = StyleBoxFlat.new()
-	style.bg_color = random_color
-	
-	# Přepíšeme styl panelu ('panel' je název vlastnosti ve Theme)
-	target_node.add_theme_stylebox_override("panel", style)
+	# Najdeme ColorRect pro gradient overlay
+	var gradient_overlay = target_node.get_node_or_null("GradientOverlay")
+
+	if gradient_overlay == null:
+		push_warning("[Visuals] GradientOverlay node not found in background")
+		return
+
+	# Vygenerujeme dvě náhodné barvy pro gradient
+	var color_start = background_color_generator()
+	var color_end = background_color_generator()
+
+	# Vytvoříme gradient
+	var gradient = Gradient.new()
+	gradient.set_color(0, color_start)  # Barva na začátku (nahoře)
+	gradient.set_color(1, color_end)    # Barva na konci (dole)
+
+	# Vytvoříme GradientTexture2D
+	var gradient_texture = GradientTexture2D.new()
+	gradient_texture.gradient = gradient
+	gradient_texture.fill_from = Vector2(0.5, 0.0)  # Začátek gradientu (střed nahoře)
+	gradient_texture.fill_to = Vector2(0.5, 1.0)    # Konec gradientu (střed dole)
+	gradient_texture.width = 1920
+	gradient_texture.height = 1080
+
+	# Aplikujeme texturu na ColorRect/TextureRect
+	if gradient_overlay is TextureRect:
+		gradient_overlay.texture = gradient_texture
+	elif gradient_overlay is ColorRect:
+		# Pro ColorRect použijeme material s texturou
+		var material = CanvasItemMaterial.new()
+		gradient_overlay.material = material
+		# ColorRect nepodporuje přímo textury, musíme použít jiný přístup
+		push_warning("[Visuals] ColorRect needs to be TextureRect for gradient support")
+
+	print("[Visuals] Generated gradient from ", color_start, " to ", color_end)
 
 # Funkce, která vrací náhodnou barvu v modelu HSV
 func background_color_generator() -> Color:

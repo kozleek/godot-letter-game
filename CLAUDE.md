@@ -149,8 +149,17 @@ Game phases are coordinated through signals:
 The `Visuals` singleton provides reusable effects:
 - `screen_shake(node, intensity, duration, repeat)`: Camera shake effect on any node
 - `pop_animation(node, factor, duration, repeat)`: Scale pop effect using tweens
-- `change_background_color(node)`: Generates random purple/pink gradient backgrounds
+- `background_color_generator()`: Generates random colors in purple/pink range (HSV: h=0.75-0.92, s=0.5-0.9, v=0.5-1.0)
 - All effects use Godot's Tween system
+
+### Dynamic Background Gradient
+The background uses procedurally generated gradient instead of bitmap:
+- `Scripts/background.gd` generates gradient on scene load
+- Creates `GradientTexture2D` with transparent start (reveals tile texture) and random color end from `Visuals.background_color_generator()`
+- Gradient flows vertically (top to bottom): transparent → colored
+- Applied to `GradientOverlay` TextureRect node
+- Resolution: 1920x1080
+- Layering: Panel style → Tile texture with shader → Transparent gradient overlay
 
 ### Scene Management
 Main scenes are referenced in Settings constants:
