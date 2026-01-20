@@ -4,6 +4,8 @@
 
 Interaktivní aplikace pro hru v kategoriích vytvořená v Godot enginu.
 
+**[🎮 Webová verze aplikace](https://pismenkova-hra.nase-trida.cz)**
+
 ## Popis
 
 Písmenková hra je zábavná party aplikace inspirovaná klasickou hrou v kategoriích. Aplikace náhodně vylosuje písmeno a kategorii (např. "Město", "Zvíře", "Sportovec"), po kterém následuje časový limit pro vymyšlení odpovědi. Ideální pro hraní s přáteli nebo ve větší skupině.
