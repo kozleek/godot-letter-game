@@ -157,3 +157,100 @@ Main scenes are referenced in Settings constants:
 - **Packed Types**: Use `PackedStringArray`, `Vector2i` for Godot-specific data types
 - **FileAccess**: For JSON operations, use `FileAccess.open()` with explicit close
 - **Translation**: Always use `tr()` for user-facing strings to support Czech/English
+
+## Coding Guidelines and Best Practices
+
+### Naming Conventions
+
+Follow Godot's official style guide strictly:
+
+- **Variables and Functions**: Use `snake_case` for all variables, functions, and parameters
+  - Good: `answer_container`, `current_letter`, `load_answers()`
+  - Bad: `answerContainer`, `currentLetter`, `loadAnswers()`
+- **Constants**: Use `UPPER_SNAKE_CASE` for constants
+  - Example: `LETTERS_AND_POINTS`, `ANSWERS_PATH`
+- **Private Functions**: Prefix internal/private functions with underscore `_`
+  - Private: `_load_answers()`, `_shuffle_letters()`, `_get_answer()`
+  - Public API: `show_answer()`, `hide_answer()`, `get_current_letter()`
+- **Signals**: Use `signal_*` prefix for custom signals
+  - Example: `signal_spin_start`, `signal_round_finished`
+
+### Code Organization
+
+- **Remove Unused Code**: Eliminate unused variables, functions, or imports
+  - Prefer local variables over instance variables when data isn't shared across methods
+  - Example: Replace instance `current_answer: String` with local `var answer_text` if only used in one function
+- **Function Visibility**: Mark functions as private (with `_` prefix) if they are only used internally
+  - Public functions form the component's API and may be called from other scripts
+  - Private functions are implementation details
+
+### Comments and Documentation
+
+Write comments in **Czech** for better team understanding:
+
+- **File-level comments**: Describe what the component does
+- **Variable documentation**: Explain data structures and their purpose
+  ```gdscript
+  # Dictionary s předgenerovanými odpověďmi ve struktuře: { "SUB_KEY": { "A": "odpověď", "B": ... } }
+  var answers: Dictionary = {}
+  ```
+- **Section headers**: Use decorative separators for logical sections
+  ```gdscript
+  # ========================
+  # Načtení předgenerovaných odpovědí
+  # ========================
+  ```
+- **Inline comments**: Explain non-obvious logic, decisions, and edge cases
+  ```gdscript
+  # Kontrola existence souboru s odpověďmi
+  if not FileAccess.file_exists(path):
+      push_warning("Answer file not found at path: %s" % path)
+      return
+  ```
+
+### Error Handling
+
+Implement robust error handling for all I/O operations and external dependencies:
+
+- **File Operations**: Always check if file exists and if `FileAccess.open()` returns non-null
+  ```gdscript
+  if not FileAccess.file_exists(path):
+      push_warning("Answer file not found at path: %s" % path)
+      return
+
+  var file = FileAccess.open(path, FileAccess.READ)
+  if file == null:
+      push_error("Failed to open file: %s. Error: %s" % [path, FileAccess.get_open_error()])
+      return
+  ```
+- **JSON Parsing**: Validate parse results and check data types
+  ```gdscript
+  var json = JSON.new()
+  var parse_result = json.parse(json_text)
+  if parse_result != OK:
+      push_error("Failed to parse JSON. Error at line %d: %s" % [json.get_error_line(), json.get_error_message()])
+      return
+
+  if typeof(json.data) != TYPE_DICTIONARY:
+      push_error("JSON root must be a Dictionary, got: %s" % type_string(typeof(json.data)))
+      return
+  ```
+- **Logging Levels**:
+  - `push_warning()`: For non-critical issues (missing optional files, deprecated features)
+  - `push_error()`: For critical failures that prevent functionality
+  - Include context in error messages (file paths, error codes, line numbers)
+- **Early Returns**: Use early returns to handle error cases and reduce nesting
+- **Resource Cleanup**: Always close files explicitly with `file.close()` after reading/writing
+
+### Code Quality
+
+- **Type Hints**: Always use type hints for function parameters and return values
+  ```gdscript
+  func get_answer(subject: String, letter: String) -> String:
+  ```
+- **Defensive Programming**: Validate assumptions and handle edge cases
+  - Check if dictionary keys exist before accessing: `if answers.has(subject):`
+  - Validate data types before processing
+  - Return safe defaults (empty strings, empty arrays) instead of null when appropriate
+- **Single Responsibility**: Each function should do one thing well
+- **DRY Principle**: Avoid code duplication - extract common logic into helper functions
