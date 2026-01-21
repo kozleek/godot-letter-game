@@ -19,6 +19,7 @@ func save_settings() -> void:
 		"is_points_visible": Settings.is_points_visible,
 		"is_round_enabled": Settings.is_round_enabled,
 		"is_no_repeat_enabled": Settings.is_no_repeat_enabled,
+		"current_language": Settings.current_language,
 		"team1_score": Settings.team1_score,
 		"team2_score": Settings.team2_score
 	}
@@ -37,6 +38,8 @@ func save_settings() -> void:
 func load_settings() -> void:
 	if not FileAccess.file_exists(Settings.SAVEDATA_PATH):
 		print("[UserData] Žádný ukládací soubor nenalezen, používám výchozí hodnoty.")
+		# Aplikuj výchozí jazyk (čeština)
+		Settings.apply_language()
 		return
 
 	var file = FileAccess.open(Settings.SAVEDATA_PATH, FileAccess.READ)
@@ -56,6 +59,7 @@ func load_settings() -> void:
 			Settings.is_points_visible = data.get("is_points_visible", Settings.is_points_visible)
 			Settings.is_round_enabled = data.get("is_round_enabled", Settings.is_round_enabled)
 			Settings.is_no_repeat_enabled = data.get("is_no_repeat_enabled", Settings.is_no_repeat_enabled)
+			Settings.current_language = data.get("current_language", Settings.current_language)
 			Settings.team1_score = data.get("team1_score", Settings.team1_score)
 			Settings.team2_score = data.get("team2_score", Settings.team2_score)
 
@@ -63,12 +67,16 @@ func load_settings() -> void:
 			if data.has("points_min") and data.has("points_max"):
 				Settings.points_range = Vector2i(data["points_min"], data["points_max"])
 
+			# Aplikování jazyka po načtení
+			Settings.apply_language()
+
 			print("[UserData] Nastavení bylo úspěšně načteno.")
 			print("[UserData] --- is_sound_enabled: ", Settings.is_sound_enabled)
 			print("[UserData] --- is_autostop_enabled: ", Settings.is_autostop_enabled)
 			print("[UserData] --- is_points_visible: ", Settings.is_points_visible)
 			print("[UserData] --- is_round_enabled: ", Settings.is_round_enabled)
 			print("[UserData] --- is_no_repeat_enabled: ", Settings.is_no_repeat_enabled)
+			print("[UserData] --- current_language: ", Settings.current_language)
 			print("[UserData] --- points_range: ", Settings.points_range)
 			print("[UserData] --- team1_score: ", Settings.team1_score)
 			print("[UserData] --- team2_score: ", Settings.team2_score)

@@ -20,13 +20,13 @@ func _load_answers() -> void:
 
 	# Kontrola existence souboru s odpověďmi
 	if not FileAccess.file_exists(path):
-		push_warning("Answer file not found at path: %s" % path)
+		push_warning("[Answer] Soubor nenalezen: %s" % path)
 		return
 
 	# Pokus o otevření souboru - může selhat kvůli oprávněním nebo jiným IO problémům
 	var file = FileAccess.open(path, FileAccess.READ)
 	if file == null:
-		push_error("Failed to open answer file: %s. Error: %s" % [path, FileAccess.get_open_error()])
+		push_error("[Answer] Soubor nelze otevřít: %s. Chyba: %s" % [path, FileAccess.get_open_error()])
 		return
 
 	# Načtení celého obsahu souboru jako text
@@ -37,12 +37,12 @@ func _load_answers() -> void:
 	var json = JSON.new()
 	var parse_result = json.parse(json_text)
 	if parse_result != OK:
-		push_error("Failed to parse answer JSON. Error at line %d: %s" % [json.get_error_line(), json.get_error_message()])
+		push_error("[Answer] Nelze načíst JSON formát. Chyba na řádku %d: %s" % [json.get_error_line(), json.get_error_message()])
 		return
 
 	# Validace typu - root musí být Dictionary
 	if typeof(json.data) != TYPE_DICTIONARY:
-		push_error("Answer JSON root must be a Dictionary, got: %s" % type_string(typeof(json.data)))
+		push_error("[Answer] JSON musí být typ Dictationary. Typ: %s" % type_string(typeof(json.data)))
 		return
 
 	# Úspěšné načtení - uložení dat do globální proměnné

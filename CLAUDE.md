@@ -39,7 +39,8 @@ These autoloaded nodes are accessible globally throughout the project:
 - **`Settings`** (`Scripts/Globals/settings.gd`): Game configuration constants and runtime settings
   - Defines `LETTERS_AND_POINTS` dictionary, `SUBJECTS` array with translation keys
   - Contains paths: `SAVEDATA_PATH`, `ANSWERS_PATH`, `SCENE_*_PATH`
-  - Runtime settings: spin timing, round duration, autostop, points visibility, no-repeat mode
+  - Runtime settings: spin timing, round duration, autostop, points visibility, no-repeat mode, language
+  - Language management: `change_language()`, `apply_language()` functions
 - **`UserData`** (`Scripts/Globals/user_data.gd`): Saves/loads user preferences to `user://savedata.json`
 - **`Visuals`** (`Scripts/Globals/visuals.gd`): Visual effects (screen shake, pop animations, background colors)
 - **`Audio`** (`Scripts/Globals/audio.gd`): Sound management via AudioServer
@@ -65,6 +66,7 @@ Each component is a class with its own scene and script:
 - **`Answer`** (`Scripts/answer.gd`): Displays correct answers
   - Loads pre-generated answers from `Data/answers.json`
   - Answers were generated using ChatGPT 5 mini
+  - **Note**: Pre-generated answers are only available for Czech language. Help button is hidden when language is set to English.
 
 - **`Game`** (`Scripts/game.gd`): Main controller orchestrating all components
   - Manages game state through boolean flags
@@ -90,7 +92,7 @@ Each component is a class with its own scene and script:
 
 **Keyboard Controls**:
 - Space/Enter/NumEnter: Start/Stop spinning (bound to `spinning` input action)
-- H key: Show answer when round is finished (bound to `answer` input action)
+- H key: Show answer when round is finished (bound to `answer` input action) - **only available for Czech language**
 
 ### Translation System
 
@@ -98,8 +100,23 @@ The app uses Godot's built-in internationalization:
 - Translation source: `translations.csv` (CSV format with translation keys)
 - Compiled translations: `translations.cs.translation` (Czech), `translations.en.translation` (English)
 - All subject names use translation keys prefixed with `SUB_` (e.g., `SUB_MESTO`, `SUB_ZVIRE`)
-- UI text uses keys prefixed with `UI_` (e.g., `UI_SEC` for seconds)
+- UI text uses keys prefixed with `UI_` (e.g., `UI_SEC` for seconds, `UI_SETTINGS_*` for settings dialog)
 - Access via `tr("KEY_NAME")` function
+- Modal settings dynamically sets localized texts in `_ready()` using `tr()` for all checkboxes and buttons
+
+### Language Management
+
+Language settings are managed through `Settings` singleton:
+- `Settings.current_language`: Current language code ("cs" for Czech, "en" for English)
+- Default language: Czech ("cs")
+- `Settings.change_language(language_code)`: Changes language, emits signal, and saves settings
+- `Settings.apply_language()`: Applies current language via `TranslationServer.set_locale()`
+- `Settings.language_changed` signal: Emitted when language changes for immediate UI updates
+- Language is loaded from `user://savedata.json` on startup via `UserData`
+- If no save file exists, default Czech language is applied
+- Language can be changed in settings dialog via two buttons: "CS" and "EN"
+- Active language button is visually highlighted (opacity 1.0 vs 0.5)
+- UI updates immediately via signal, scene reload on dialog close ensures all components updated
 
 ### Data Files
 
@@ -117,6 +134,7 @@ User settings are saved as JSON with these fields:
 - `is_sound_enabled`, `is_mic_enabled`, `is_autostop_enabled`
 - `points_min`, `points_max` (Vector2i components)
 - `is_points_visible`, `is_round_enabled`, `is_no_repeat_enabled`
+- `current_language` (language code: "cs" or "en")
 - `team1_score`, `team2_score`
 
 ## Project Structure Notes

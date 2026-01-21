@@ -33,6 +33,4 @@ func _generate_gradient() -> void:
 	gradient_texture.height = 1080
 
 	# Aplikujeme texturu
-	gradient_overlay.texture = gradient_texture
-
-	print("[Background] Generated gradient: transparent -> ", color_end)
+	gradient_overlay.texture = gradient_texture	

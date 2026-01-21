@@ -78,8 +78,13 @@ func set_play_button_disabled(disabled: bool) -> void:
 	button_play.mouse_default_cursor_shape = Control.CURSOR_FORBIDDEN if disabled else Control.CURSOR_POINTING_HAND
 
 # Zobrazí tlačítko nápovědy (volá se po dokončení otáčení)
+# Tlačítko je dostupné pouze pro českou verzi (momentálně nejsou anglické odpovědi)
 func show_help_button() -> void:
-	button_help.visible = true
+	# Help button je dostupný pouze pro český jazyk
+	if Settings.current_language == "cs":
+		button_help.visible = true
+	else:
+		button_help.visible = false
 
 # Skryje tlačítko nápovědy (volá se při startu nového otáčení)
 func hide_help_button() -> void:

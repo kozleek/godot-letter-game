@@ -247,8 +247,14 @@ func _on_menu_signal_open_settings() -> void:
 
 
 # Tlačítko Help
+# Zobrazí předgenerovanou odpověď (dostupné pouze pro český jazyk)
 func _on_menu_signal_help_pressed() -> void:
-	if (is_round_finished and is_finalize) or (not Settings.is_round_enabled and is_finalize):	
+	# Kontrola jazyka - odpovědi jsou dostupné pouze pro češtinu
+	if Settings.current_language != "cs":
+		print("[Menu:Help] Help button not available for language: %s" % Settings.current_language)
+		return
+
+	if (is_round_finished and is_finalize) or (not Settings.is_round_enabled and is_finalize):
 		print("[Menu:Help] Zobrazení odpovědi (tlačítko)")
 		answer.show_answer(current_subject, current_letter)
 		menu.hide_help_button()

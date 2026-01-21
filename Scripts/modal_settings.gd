@@ -7,9 +7,45 @@ extends PanelContainer
 @onready var check_round: CheckButton = $CenterContainer/Panel/MarginContainer/VBoxContainer/SettingsContainer/CheckRound
 @onready var check_no_repeat: CheckButton = $CenterContainer/Panel/MarginContainer/VBoxContainer/SettingsContainer/CheckNoRepeat
 
+# Odkazy na tlačítka pro výběr jazyka
+@onready var button_language_cs: Button = $CenterContainer/Panel/MarginContainer/VBoxContainer/LanguageContainer/ButtonLanguageCS
+@onready var button_language_en: Button = $CenterContainer/Panel/MarginContainer/VBoxContainer/LanguageContainer/ButtonLanguageEN
+
+# Odkazy na ostatní tlačítka
+@onready var button_score_reset: Button = $CenterContainer/Panel/MarginContainer/VBoxContainer/ButtonScoreReset
+@onready var button_close: Button = $CenterContainer/Panel/MarginContainer/VBoxContainer/ButtonClose
+
 # Flag indikující, zda došlo ke změně nastavení (při zavření dialogu se reloadne scéna)
 var settings_changed: bool = false
 
+func _ready() -> void:
+	# Připojení k signálu změny jazyka pro okamžitou aktualizaci UI
+	Settings.language_changed.connect(_on_language_changed)
+
+	# Inicializace UI textů
+	_refresh_ui_texts()
+
+# Aktualizuje všechny lokalizované texty v UI
+# Volá se při startu a při změně jazyka
+func _refresh_ui_texts() -> void:
+	# Nastavení lokalizovaných textů pro checkboxy
+	# Používá translation keys z translations.csv s prefixem UI_SETTINGS_
+	check_sound.text = tr("UI_SETTINGS_SOUND")
+	check_autostop.text = tr("UI_SETTINGS_AUTOSTOP")
+	check_points.text = tr("UI_SETTINGS_POINTS")
+	check_round.text = tr("UI_SETTINGS_ROUND")
+	check_no_repeat.text = tr("UI_SETTINGS_NO_REPEAT")
+
+	# Nastavení textu jazykových tlačítek
+	button_language_cs.text = tr("UI_LANG_CZECH")
+	button_language_en.text = tr("UI_LANG_ENGLISH")
+
+	# Zvýraznění aktivního jazyka
+	_update_language_buttons()
+
+	# Nastavení lokalizovaných textů pro tlačítka
+	button_score_reset.text = tr("UI_SETTINGS_RESET_SCORE")
+	button_close.text = tr("UI_SETTINGS_CLOSE")
 
 # ========================
 # Inicializace a otevření dialogu
@@ -93,6 +129,42 @@ func _on_check_no_repeat_toggled(toggled_on: bool) -> void:
 	Settings.is_no_repeat_enabled = toggled_on
 	_save_setting_change()
 
+# ========================
+# Callback funkce pro jazykové tlačítka
+# ========================
+
+# Callback pro tlačítko CS - přepne na češtinu
+func _on_button_language_cs_pressed() -> void:
+	Settings.change_language("cs")
+	_save_setting_change()
+
+# Callback pro tlačítko EN - přepne na angličtinu
+func _on_button_language_en_pressed() -> void:
+	Settings.change_language("en")
+	_save_setting_change()
+
+# Callback pro signál změny jazyka - okamžitě refreshne UI
+func _on_language_changed(_language_code: String) -> void:
+	_refresh_ui_texts()
+
+# Aktualizuje vizuální stav jazykových tlačítek
+# Zvýrazní aktivní jazyk pomocí modulate (průhlednost)
+func _update_language_buttons() -> void:
+	if Settings.current_language == "cs":
+		button_language_en.modulate.a = 1.0  # Plně viditelné = aktivní
+		button_language_cs.modulate.a = 0.5  # Průhledné = neaktivní
+		button_language_en.disabled = false
+		button_language_cs.disabled = true
+		button_language_en.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+		button_language_cs.mouse_default_cursor_shape = Control.CURSOR_FORBIDDEN
+	else:
+		button_language_en.modulate.a = 0.5  # Průhledné = neaktivní
+		button_language_cs.modulate.a = 1.0  # Plně viditelné = aktivní
+		button_language_en.disabled = true
+		button_language_cs.disabled = false
+		button_language_en.mouse_default_cursor_shape = Control.CURSOR_FORBIDDEN
+		button_language_cs.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	
 # ========================
 # Ovládání dialogu
 # ========================

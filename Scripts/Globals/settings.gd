@@ -1,5 +1,8 @@
 extends Node
 
+# Signál vyslaný při změně jazyka - komponenty mohou reagovat a refreshnout UI
+signal language_changed(language_code: String)
+
 # ========================
 # Systemové nastavení
 # ========================
@@ -125,6 +128,8 @@ var is_points_visible: bool = true
 var is_round_enabled: bool = true
 # Herní mód "Bez opakování" - každá kombinace písmeno/kategorie max. 1x za session
 var is_no_repeat_enabled: bool = true
+# Aktuální jazyk aplikace (cs = čeština, en = angličtina)
+var current_language: String = "cs"
 
 # Skóre týmů
 var team1_score: int = 0
@@ -140,3 +145,30 @@ var slowdown_stop_speed: float = 0.3
 var autostop_wait_time: float = 5.0
 # Délka času na odpovědi (sec)
 var round_wait_time: float = 5.0
+
+# ========================
+# Funkce pro správu jazyka
+# ========================
+
+# Změní jazyk aplikace a vyšle signál pro okamžitou aktualizaci UI
+# Podporované jazyky: "cs" (čeština), "en" (angličtina)
+func change_language(language_code: String) -> void:
+	# Validace jazyka
+	if language_code not in ["cs", "en"]:
+		push_warning("[Settings] Nepodporovaný jazyk: %s. Použivám 'cs'." % language_code)
+		language_code = "cs"
+
+	# Nastavení jazyka v TranslationServer
+	current_language = language_code
+	TranslationServer.set_locale(language_code)
+
+	print("[Settings] Jazyk byl změněn na: %s" % language_code)
+
+	# Vyslání signálu pro okamžitou aktualizaci UI ve všech komponentách
+	language_changed.emit(language_code)
+
+# Aplikuje aktuální jazyk při startu aplikace
+# Volá se z UserData po načtení nastavení
+func apply_language() -> void:
+	TranslationServer.set_locale(current_language)
+	print("[Settings] Použitý jazyk: %s" % current_language)

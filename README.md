@@ -15,10 +15,12 @@ Písmenková hra je zábavná party aplikace inspirovaná klasickou hrou v kateg
 - **Náhodné losování písmen a kategorií** - Aplikace postupně losuje písmeno a kategorii s vizuálními a zvukovými efekty
 - **Počítání skóre** - Sledování bodů pro dva týmy s možností přičítat body myší nebo klávesnicí
 - **Časový limit** - Nastavitelný časovač pro každé kolo (lze vypnout)
-- **Zobrazení odpovědi** - Po skončení kola lze zobrazit správnou odpověď
+- **Zobrazení odpovědi** - Po skončení kola lze zobrazit správnou odpověď (pouze v české verzi*)
 - **Více než 70 kategorií** - Rozmanitý výběr kategorií od geografických pojmů po popkulturní odkazy
 - **Jazyková podpora** - Čeština a angličtina
 - **Nastavitelné parametry** - Rychlost losování, délka kola, automatické zastavení a další
+
+*Poznámka: Předgenerované odpovědi jsou momentálně dostupné pouze pro českou verzi aplikace.
 
 ## Kategorie
 
@@ -34,7 +36,7 @@ Hra obsahuje širokou škálu kategorií:
 
 ### Klávesové zkratky
 - **Mezerník / Enter / Num Enter** - Start/Stop losování
-- **H** - Zobrazení správné odpovědi (pouze po skončení kola)
+- **H** - Zobrazení správné odpovědi (pouze po skončení kola, dostupné jen v české verzi)
 - **PageUp** - Přičtení bodů týmu 1 (červený)
 - **PageDown** - Přičtení bodů týmu 2 (modrý)
 
@@ -57,7 +59,7 @@ Hra obsahuje širokou škálu kategorií:
 2. **Zpomalení** - Po stisknutí Stop se losování postupně zpomaluje
 3. **Finalizace** - Po zastavení se zobrazí vylosované písmeno a kategorie
 4. **Herní kolo** - Spustí se časovač (pokud je aktivní) pro vymýšlení odpovědi
-5. **Zobrazení odpovědi** - Po skončení kola lze zobrazit příkladnou správnou odpověď
+5. **Zobrazení odpovědi** - Po skončení kola lze zobrazit příkladnou správnou odpověď (pouze v české verzi)
 6. **Počítání bodů** - Po skončení losování/kola lze přičíst body týmům
 
 ### Systém skóre
@@ -80,9 +82,10 @@ Aplikace podporuje vlastní nastavení:
 - **Zobrazovat body** - Zobrazení/skrytí bodového systému a skóre týmů
 - **Zobrazovat odpočet kola** - Zapnutí/vypnutí časového limitu
 - **Bez opakování** - Herní mód, kdy každá kombinace písmeno/kategorie je použita max. 1× za session (po vyčerpání všech 1633 kombinací se seznam resetuje)
+- **Jazyk / Language** - Přepínání mezi češtinou (CS) a angličtinou (EN) pomocí tlačítek
 - **Vynulovat bodování** - Reset skóre obou týmů
 
-Všechna nastavení včetně skóre se ukládají lokálně a přetrvávají mezi spuštěními aplikace.
+Všechna nastavení včetně skóre a jazyka se ukládají lokálně a přetrvávají mezi spuštěními aplikace.
 
 ## Struktura projektu
 

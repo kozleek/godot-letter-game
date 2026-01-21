@@ -78,3 +78,13 @@ SUB_BAJE_A_POVESTI,Báje a pověsti,Myths and Legends
 SUB_SPORTOVNI_TYM,Sportovní tým,Sports Team
 UI_POCET_PISMEN,Počet písmen?,Number of letters?
 UI_SEC,sec.,sec.
+UI_SETTINGS_SOUND,Přehrávat zvuky,Play Sounds
+UI_SETTINGS_AUTOSTOP,Automatické zastavení losování,Auto-stop Drawing
+UI_SETTINGS_POINTS,Zobrazovat body,Show Points
+UI_SETTINGS_ROUND,Zobrazovat odpočet kola,Show Round Timer
+UI_SETTINGS_NO_REPEAT,Bez opakování kombinací,No Repeat Combinations
+UI_SETTINGS_LANGUAGE,Jazyk / Language,Language / Jazyk
+UI_SETTINGS_RESET_SCORE,Vynulovat bodování,Reset Score
+UI_SETTINGS_CLOSE,Zavřít,Close
+UI_LANG_CZECH,Čeština,Czech
+UI_LANG_ENGLISH,English,English
