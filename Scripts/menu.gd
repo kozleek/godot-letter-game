@@ -81,7 +81,7 @@ func set_play_button_disabled(disabled: bool) -> void:
 # Tlačítko je dostupné pouze pro českou verzi (momentálně nejsou anglické odpovědi)
 func show_help_button() -> void:
 	# Help button je dostupný pouze pro český jazyk
-	if Settings.current_language == "cs":
+	if Settings.current_language == "cs" or Settings.current_language == "en":
 		button_help.visible = true
 	else:
 		button_help.visible = false

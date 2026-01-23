@@ -17,6 +17,7 @@ const MASTER_BUS_INDEX = 0
 # Cesta k uložení uživatelského nastavení
 const SAVEDATA_PATH = "user://savedata.json"
 const ANSWERS_PATH = "res://Data/answers.json"
+const ANSWERS_EN_PATH = "res://Data/answers_en.json"
 const SCENE_INTRO_PATH = "res://Scenes/intro.tscn"
 const SCENA_GAME_PATH = "res://Scenes/game.tscn"
 
@@ -144,7 +145,7 @@ var slowdown_stop_speed: float = 0.3
 # Čas pro autostop
 var autostop_wait_time: float = 5.0
 # Délka času na odpovědi (sec)
-var round_wait_time: float = 5.0
+var round_wait_time: float = 10.0
 
 # ========================
 # Funkce pro správu jazyka

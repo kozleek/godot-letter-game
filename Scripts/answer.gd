@@ -16,7 +16,11 @@ func _ready() -> void:
 # ========================
 
 func _load_answers() -> void:
+	
 	var path = Settings.ANSWERS_PATH
+	
+	if Settings.current_language == "en":
+		path = Settings.ANSWERS_EN_PATH
 
 	# Kontrola existence souboru s odpověďmi
 	if not FileAccess.file_exists(path):

@@ -249,8 +249,8 @@ func _on_menu_signal_open_settings() -> void:
 # Tlačítko Help
 # Zobrazí předgenerovanou odpověď (dostupné pouze pro český jazyk)
 func _on_menu_signal_help_pressed() -> void:
-	# Kontrola jazyka - odpovědi jsou dostupné pouze pro češtinu
-	if Settings.current_language != "cs":
+	# Kontrola jazyka - odpovědi jsou dostupné pouze pro češtinu a angličtinu
+	if Settings.current_language != "cs" and Settings.current_language != "en":
 		print("[Menu:Help] Help button not available for language: %s" % Settings.current_language)
 		return
 
