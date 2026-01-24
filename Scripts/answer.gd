@@ -16,11 +16,14 @@ func _ready() -> void:
 # ========================
 
 func _load_answers() -> void:
-	
-	var path = Settings.ANSWERS_PATH
-	
-	if Settings.current_language == "en":
-		path = Settings.ANSWERS_EN_PATH
+	# Kontrola, zda je aktuální jazyk podporován (má předgenerované odpovědi)
+	if Settings.current_language not in Settings.LANGS_WITH_HELP:
+		push_warning("[Answer] Jazyk %s nemá předgenerované odpovědi" % Settings.current_language)
+		answers = {}  # Vyčistíme odpovědi
+		return
+
+	# Určení cesty k souboru podle jazyka
+	var path = _get_answers_path()
 
 	# Kontrola existence souboru s odpověďmi
 	if not FileAccess.file_exists(path):
@@ -51,6 +54,20 @@ func _load_answers() -> void:
 
 	# Úspěšné načtení - uložení dat do globální proměnné
 	answers = json.data
+
+# ========================
+# Helper funkce pro určení cesty k souboru s odpověďmi
+# ========================
+
+# Vrací cestu k souboru s odpověďmi podle aktuálního jazyka
+func _get_answers_path() -> String:
+	if Settings.current_language == "cs":
+		return Settings.ANSWERS_PATH
+	elif Settings.current_language == "en":
+		return Settings.ANSWERS_EN_PATH
+	else:
+		# Pro ostatní jazyky používáme vzor: res://Data/answers_{lang}.json
+		return "res://Data/answers_%s.json" % Settings.current_language
 
 # ========================
 # Získání odpovědi pro kategorii a písmeno
