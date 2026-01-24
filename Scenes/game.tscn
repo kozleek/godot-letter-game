@@ -63,6 +63,7 @@ size_flags_vertical = 8
 
 [node name="ButtonPlay" type="Button" parent="."]
 layout_mode = 2
+mouse_default_cursor_shape = 2
 theme_override_styles/normal = SubResource("StyleBoxEmpty_v158k")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_h4fw4")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_ldgsr")

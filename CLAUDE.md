@@ -35,7 +35,6 @@ The main game controller (`Scripts/game.gd`) coordinates these phases through si
 
 These autoloaded nodes are accessible globally throughout the project:
 
-- **`Helpers`** (`Scripts/Globals/helpers.gd`): Utility functions
 - **`Settings`** (`Scripts/Globals/settings.gd`): Game configuration constants and runtime settings
   - Defines `LETTERS_AND_POINTS` dictionary, `SUBJECTS` array with translation keys
   - Contains paths: `SAVEDATA_PATH`, `ANSWERS_PATH`, `SCENE_*_PATH`

@@ -17,7 +17,6 @@ config/icon="uid://bx6pxq5kdyocr"
 
 [autoload]
 
-Helpers="*res://Scripts/Globals/helpers.gd"
 Settings="*res://Scripts/Globals/settings.gd"
 UserData="*res://Scripts/Globals/user_data.gd"
 Visuals="*res://Scripts/Globals/visuals.gd"
