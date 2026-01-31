@@ -42,8 +42,10 @@ Hra obsahuje širokou škálu kategorií:
 
 ### Tlačítka
 - **Hrej/Stop** - Spuštění nebo zastavení losování, lze kliknout kdekoliv na obrazovce
-- **Team 1 (červený)** - Kliknutím přičtete body prvnímu týmu
-- **Team 2 (modrý)** - Kliknutím přičtete body druhému týmu
+- **Team 1 (červený)** - Kliknutím levým tlačítkem přičtete body prvnímu týmu
+  - **Pravé tlačítko** - Ruční úprava skóre týmu 1 (zadání libovolné hodnoty 0-9999)
+- **Team 2 (modrý)** - Kliknutím levým tlačítkem přičtete body druhému týmu
+  - **Pravé tlačítko** - Ruční úprava skóre týmu 2 (zadání libovolné hodnoty 0-9999)
 - **Nastavení** - Otevření modálního okna s nastavením aplikace
   - **Vynulovat bodování** - Reset skóre obou týmů na 0
 
@@ -62,6 +64,7 @@ Hra obsahuje širokou škálu kategorií:
 
 Aplikace podporuje sledování skóre pro dva týmy:
 - **Přičítání bodů** - Body lze přičítat po dokončení losování nebo kola (podle nastavení)
+- **Ruční úprava skóre** - Pravým tlačítkem myši na tlačítko týmu lze ručně upravit skóre (zadání libovolné hodnoty 0-9999)
 - **Dva týmy** - Červený tým (Team 1) a modrý tým (Team 2)
 - **Ovládání** - Kliknutím na tlačítko s barvou týmu nebo klávesou (Šipka vlevo/Šipka vpravo)
 - **Jednorázové bodování** - Každý tým může získat body maximálně jednou za kolo
