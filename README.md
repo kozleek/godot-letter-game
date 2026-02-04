@@ -35,7 +35,7 @@ Hra obsahuje širokou škálu kategorií:
 ## Ovládání
 
 ### Klávesové zkratky
-- **Mezerník / Enter / Num Enter** - Start/Stop losování
+- **Mezerník** - Start/Stop losování
 - **H** - Zobrazení správné odpovědi (pouze po skončení kola, dostupné jen v české a anglické verzi)
 - **Šipka doleva** - Přičtení bodů týmu 1 (červený)
 - **Šipka doprava** - Přičtení bodů týmu 2 (modrý)
@@ -43,9 +43,9 @@ Hra obsahuje širokou škálu kategorií:
 ### Tlačítka
 - **Hrej/Stop** - Spuštění nebo zastavení losování, lze kliknout kdekoliv na obrazovce
 - **Team 1 (červený)** - Kliknutím levým tlačítkem přičtete body prvnímu týmu
-  - **Pravé tlačítko** - Ruční úprava skóre týmu 1 (zadání libovolné hodnoty 0-9999)
+  - **Pravé tlačítko myši** - Ruční úprava skóre týmu 1 (zadání libovolné hodnoty 0-9999)
 - **Team 2 (modrý)** - Kliknutím levým tlačítkem přičtete body druhému týmu
-  - **Pravé tlačítko** - Ruční úprava skóre týmu 2 (zadání libovolné hodnoty 0-9999)
+  - **Pravé tlačítko myši** - Ruční úprava skóre týmu 2 (zadání libovolné hodnoty 0-9999)
 - **Nastavení** - Otevření modálního okna s nastavením aplikace
   - **Vynulovat bodování** - Reset skóre obou týmů na 0
 
@@ -88,7 +88,7 @@ Všechna nastavení včetně skóre a jazyka se ukládají lokálně a přetrvá
 
 ## Použité nástroje
 
-- **Godot Engine 4.5** - Herní engine pro vývoj aplikace
+- **Godot Engine 4.5+** - Herní engine pro vývoj aplikace
 - **Claude Code** - AI asistent pro vibecoding
 - **ChatGPT** - Odpovědi byly předgenerované pomocí AI (Model: ChatGPT 5 mini)
 - **Zvuky** - [Pixabay](https://pixabay.com/)
